@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>每日食谱推荐 - 健康饮食计划</title>
+<meta name="description" content="免费在线食谱推荐工具，根据热量生成一日三餐。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:sans-serif;background:#f0fff4;text-align:center}
+header{background:linear-gradient(135deg,#00b894,#00cec9);color:white;padding:30px 20px}
+header h1{font-size:26px}
+.box{background:white;border-radius:12px;padding:20px;max-width:500px;margin:16px auto;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+select{width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:15px;margin:4px 0}
+.btn{background:#00b894;color:white;border:none;padding:10px 24px;border-radius:8px;font-size:15px;cursor:pointer;margin:8px}
+.meal{background:#f0fff4;border:1px solid #c6f6d5;border-radius:8px;padding:10px;margin:6px 0}
+.meal h4{color:#00b894}
+.result{background:#f0fff4;border-radius:8px;padding:16px;margin:12px 0;text-align:left;line-height:1.8}
+.pay-bar{background:linear-gradient(135deg,#00b894,#00cec9);color:white;padding:12px;position:fixed;bottom:0;left:0;right:0;z-index:100}
+.pay-bar a{color:#ffd700;font-weight:bold;text-decoration:none}
+</style></head>
+<body>
+<header><h1>🥗 每日食谱推荐</h1><p>根据热量需求生成健康食谱</p></header>
+<div class="box">
+<select id="cal"><option value="1500">减肥 - 1500千卡</option><option value="1800" selected>均衡 - 1800千卡</option><option value="2000">维持 - 2000千卡</option><option value="2500">增肌 - 2500千卡</option></select>
+<button class="btn" onclick="gen()">🥘 生成食谱</button>
+<div class="result" id="result">点击生成食谱</div>
+</div>
+<div class="pay-bar">💡 想要个性化？<a href="#">请作者喝杯咖啡 ☕</a> | 仅需1元</div>
+<script>
+const bf=[{n:'全麦面包+鸡蛋+牛奶',c:350,d:'2片全麦+1个煮蛋+1杯牛奶'},{n:'燕麦粥+香蕉',c:300,d:'燕麦40g+香蕉1根+核桃2颗'},{n:'豆浆+包子',c:380,d:'豆浆1杯+肉包2个'},{n:'小米粥+鸡蛋饼',c:320,d:'小米粥+鸡蛋饼1张'},{n:'酸奶+麦片+水果',c:280,d:'酸奶200ml+麦片30g+蓝莓50g'}];
+const lu=[{n:'鸡胸肉沙拉+糙米饭',c:550,d:'烤鸡胸150g+沙拉+糙米饭150g'},{n:'番茄鸡蛋面',c:500,d:'番茄鸡蛋面+青菜+荷包蛋'},{n:'清蒸鱼+西兰花+米饭',c:520,d:'清蒸鲈鱼150g+蒜蓉西兰花+米饭100g'},{n:'牛肉面+小菜',c:580,d:'牛肉面+凉拌黄瓜'}];
+const di=[{n:'白灼虾+清炒时蔬',c:400,d:'白灼虾150g+清炒菠菜+杂粮饭'},{n:'蔬菜豆腐汤+红薯',c:350,d:'蔬菜豆腐汤+蒸红薯1个'},{n:'蒸蛋+凉拌菜+小米粥',c:320,d:'蒸蛋2个+凉拌木耳+小米粥'},{n:'菌菇汤+全麦馒头',c:380,d:'菌菇汤+全麦馒头1个'}];
+function r(a){return a[Math.floor(Math.random()*a.length)]}
+function gen(){
+const goal=parseInt(document.getElementById('cal').value);
+const b=r(bf),l=r(lu),d=r(di);
+const total=b.c+l.c+d.c;
+const diff=total-goal;
+document.getElementById('result').innerHTML=
+'<div class="meal"><h4>🌅 早餐 ('+b.c+'千卡)</h4><p>'+b.d+'</p></div>'+
+'<div class="meal"><h4>☀️ 午餐 ('+l.c+'千卡)</h4><p>'+l.d+'</p></div>'+
+'<div class="meal"><h4>🌙 晚餐 ('+d.c+'千卡)</h4><p>'+d.d+'</p></div>'+
+'<p style="margin-top:8px">总热量: <strong>'+total+'</strong>千卡 (目标:'+goal+'千卡 '+(diff>0?'超出'+diff:'少'+Math.abs(diff))+')</p>';
+}
+</script></body></html>
