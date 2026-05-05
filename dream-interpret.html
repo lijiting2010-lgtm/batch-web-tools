@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>周公解梦 - 免费在线解梦</title>
+<meta name="description" content="免费在线周公解梦大全，输入梦境内容查询含义。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:sans-serif;background:#1a1a2e;color:#eee;text-align:center}
+header{background:linear-gradient(135deg,#16213e,#0f3460);color:#e94560;padding:30px 20px}
+header h1{font-size:26px}
+.box{background:#16213e;border-radius:12px;padding:20px;max-width:500px;margin:16px auto}
+textarea{width:100%;padding:10px;border:1px solid #333;border-radius:8px;background:#1a1a2e;color:#eee;font-size:15px;min-height:80px}
+.btn{background:#e94560;color:white;border:none;padding:10px 24px;border-radius:8px;font-size:15px;cursor:pointer;margin:8px}
+.result{background:#0f3460;border-radius:8px;padding:16px;margin:12px 0;text-align:left;line-height:1.8;font-size:14px}
+.pay-bar{background:linear-gradient(135deg,#16213e,#e94560);color:white;padding:12px;position:fixed;bottom:0;left:0;right:0;z-index:100}
+.pay-bar a{color:#ffd700;font-weight:bold;text-decoration:none}
+</style></head>
+<body>
+<header><h1>🔮 周公解梦</h1><p>输入梦境查询含义</p></header>
+<div class="box">
+<textarea id="dream" placeholder="描述你的梦境...例如：梦见自己飞在天上"></textarea>
+<button class="btn" onclick="interp()">🔮 解梦</button>
+<div class="result" id="result">输入梦境，点击解梦</div>
+</div>
+<div class="pay-bar">💡 觉得准？<a href="#">请作者喝杯咖啡 ☕</a> | 仅需1元</div>
+<script>
+const db={
+'飞':'梦见飞翔：预示事业腾飞，前途光明。坠落则需小心决策。',
+'水':'清澈的水=好运。浑浊的水=烦恼阻碍。',
+'蛇':'蛇=智慧转变。被追=需要面对恐惧。打死=克服困难。',
+'钱':'捡钱=意外之财。数钱=对财富的渴望。丢钱=小心财务。',
+'考试':'考好=成功通过考验。考砸=需要做好准备。',
+'雨':'小雨=好运滋润。暴雨=困难挑战。彩虹=苦尽甘来。',
+'火':'旺火=热情活力。火灾=麻烦损失。救火=解决问题。',
+'追':'被追=逃避责任。建议勇敢面对。',
+'掉牙':'掉牙=近期可能有变动或失去。',
+'鬼':'鬼=内心恐惧压力。被鬼追=正视恐惧。',
+'死':'梦见死亡=旧事物结束，新生活开始，重生象征。',
+'结婚':'结婚=好事将近。再婚=对现状不满。',
+'怀孕':'怀孕=新想法酝酿。也预示好运。',
+'旅行':'旅行=自由渴望。旅途顺利=万事如意。',
+'哭':'梦见哭=心中有事需要释放，哭完后会有好事。',
+'笑':'梦见笑=近期心情愉悦，人际关系和谐。',
+'花':'梦见花=美好事物即将到来。开花=成功。',
+'桥':'梦见桥=人生转折点。过桥=克服困难。',
+'山':'爬山=追求目标。到山顶=成功。下山=休整。'
+};
+function interp(){
+const t=document.getElementById('dream').value;
+if(!t){document.getElementById('result').textContent='请描述梦境';return;}
+let res=[];for(const[k,v]of Object.entries(db)){if(t.includes(k))res.push(v);}
+if(res.length===0){const ks=Object.keys(db);res=[db[ks[Math.floor(Math.random()*ks.length)]]];}
+document.getElementById('result').innerHTML='<p style="color:#e94560">📜 解梦结果</p>'+res.join('<hr style="border-color:#333;margin:4px 0">')+'<p style="font-size:11px;color:#555;margin-top:8px">*仅供娱乐</p>';
+}
+</script></body></html>
