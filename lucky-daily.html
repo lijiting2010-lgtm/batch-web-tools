@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>今日运势 - 每日星座运势</title>
+<meta name="description" content="免费在线今日运势测试，每日星座运势查询。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;color:white;text-align:center}
+header{padding:30px 20px}
+header h1{font-size:28px}
+select,button{width:100%;padding:12px;border-radius:8px;font-size:15px;margin:6px 0;border:none}
+select{background:rgba(255,255,255,.9);color:#333}
+button{background:#ffd700;color:#333;cursor:pointer;font-weight:bold}
+.box{background:rgba(255,255,255,.1);border-radius:12px;padding:20px;max-width:400px;margin:16px auto;backdrop-filter:blur(10px)}
+.result{background:rgba(255,255,255,.15);border-radius:12px;padding:16px;margin:12px 0;text-align:left;line-height:1.8}
+.stars{font-size:20px;letter-spacing:4px}
+.pay-bar{background:#ffd700;color:#333;padding:12px;position:fixed;bottom:0;left:0;right:0;z-index:100}
+.pay-bar a{color:#6c5ce7;font-weight:bold;text-decoration:none}
+</style></head>
+<body>
+<header><h1>✨ 今日运势</h1><p>查看今日星座运势和幸运指数</p></header>
+<div class="box">
+<select id="zodiac">
+<option>白羊座(3.21-4.19)</option><option>金牛座(4.20-5.20)</option>
+<option>双子座(5.21-6.21)</option><option>巨蟹座(6.22-7.22)</option>
+<option>狮子座(7.23-8.22)</option><option>处女座(8.23-9.22)</option>
+<option>天秤座(9.23-10.23)</option><option>天蝎座(10.24-11.22)</option>
+<option>射手座(11.23-12.21)</option><option>摩羯座(12.22-1.19)</option>
+<option>水瓶座(1.20-2.18)</option><option>双鱼座(2.19-3.20)</option>
+</select>
+<button onclick="fortune()">🔮 查看今日运势</button>
+<div class="result" id="result">选择星座查看运势</div>
+</div>
+<div class="pay-bar">💡 想要详细分析？<a href="#">请作者喝杯咖啡 ☕</a> | 仅需1元</div>
+<script>
+const luck=['★★☆☆☆','★★★☆☆','★★★★☆','★★★☆☆','★★★★★','★★☆☆☆','★★★★☆','★★★☆☆'];
+const loves=['平平淡淡','桃花运旺','注意口角','甜蜜温馨','容易吵架','贵人相助','单身勿愁','缘分将至'];
+const moneys=['小有进账','节约开支','财运亨通','投资需慎','意外之财','收支平衡','请客花钱','奖金到手'];
+const works=['顺风顺水','遇到挑战','贵人相助','开会发言','任务繁重','升职有望','建议摸鱼','大展宏图'];
+const colors=['红色','蓝色','绿色','黄色','白色','黑色','紫色','橙色'];
+const nums=[7,12,3,8,15,22,5,18];
+function r(a){return a[Math.floor(Math.random()*a.length)]}
+function fortune(){
+const z=document.getElementById('zodiac').value;
+const l=r(luck),lo=r(loves),m=r(moneys),w=r(works),c=r(colors),n=r(nums);
+const today=new Date();
+document.getElementById('result').innerHTML=
+'<p style="font-size:16px;font-weight:bold;margin-bottom:8px">'+z+'</p>'+
+'<p>📅 '+today.getFullYear()+'年'+(today.getMonth()+1)+'月'+today.getDate()+'日</p>'+
+'<p>⭐ 综合运势: <span class="stars">'+l+'</span></p>'+
+'<p>❤️ 爱情: '+lo+'</p>'+
+'<p>💰 财运: '+m+'</p>'+
+'<p>💼 事业: '+w+'</p>'+
+'<p>🎨 幸运色: '+c+'</p>'+
+'<p>🔢 幸运数字: '+n+'</p>'+
+'<p style="font-size:12px;opacity:.6;margin-top:8px">*仅供娱乐参考</p>';
+}
+</script></body></html>
