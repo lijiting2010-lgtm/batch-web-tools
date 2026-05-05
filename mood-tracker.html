@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>每日心情记录 - 心情日记</title>
+<meta name="description" content="免费在线心情记录工具，记录每天心情变化。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:sans-serif;background:#f8f0ff;text-align:center}
+header{background:linear-gradient(135deg,#a29bfe,#6c5ce7);color:white;padding:30px 20px}
+header h1{font-size:26px}
+.box{background:white;border-radius:12px;padding:20px;max-width:450px;margin:16px auto;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+select,textarea{width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:15px;margin:4px 0}
+textarea{min-height:60px}
+.btn{background:#6c5ce7;color:white;border:none;padding:10px 24px;border-radius:8px;font-size:15px;cursor:pointer;margin:8px}
+.result{background:#f8f0ff;border-radius:8px;padding:12px;margin:8px 0;font-size:14px;text-align:left}
+.pay-bar{background:linear-gradient(135deg,#a29bfe,#6c5ce7);color:white;padding:12px;position:fixed;bottom:0;left:0;right:0;z-index:100}
+.pay-bar a{color:#ffd700;font-weight:bold;text-decoration:none}
+</style></head>
+<body>
+<header><h1>📖 每日心情记录</h1><p>记录每天心情变化</p></header>
+<div class="box">
+<select id="mood"><option>😊 开心</option><option>😐 一般</option><option>😢 难过</option><option>😡 生气</option><option>😴 疲惫</option><option>🤩 兴奋</option></select>
+<textarea id="note" placeholder="写下今天的感受..."></textarea>
+<button class="btn" onclick="save()">📝 记录今天</button>
+<div class="result" id="result">今天还没记录</div>
+</div>
+<div class="pay-bar">💡 觉得好用？<a href="#">请作者喝杯咖啡 ☕</a> | 仅需1元</div>
+<script>
+function save(){
+const m=document.getElementById('mood').value;
+const n=document.getElementById('note').value||'无备注';
+const d=new Date(),k=d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()+'-mood';
+localStorage.setItem(k,JSON.stringify({mood:m,note:n,time:d.toLocaleTimeString()}));
+document.getElementById('result').innerHTML='✅ 已记录！<br>日期: '+d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()+'<br>心情: '+m;
+document.getElementById('note').value='';
+}
+</script></body></html>
