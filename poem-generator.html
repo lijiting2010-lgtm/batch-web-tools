@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>古诗生成器 - AI即兴创作古诗</title>
+<meta name="description" content="免费在线古诗生成器，输入关键词AI自动生成古诗。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'STKaiti','KaiTi',serif;background:#fdf8f0;text-align:center}
+header{background:linear-gradient(135deg,#8B4513,#A0522D);color:#ffd700;padding:30px 20px}
+header h1{font-size:26px}
+.box{background:white;border-radius:12px;padding:20px;max-width:500px;margin:16px auto;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+input,select{width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:15px;margin:4px 0}
+.btn{background:#8B4513;color:#ffd700;border:none;padding:10px 24px;border-radius:8px;font-size:15px;cursor:pointer;margin:8px}
+.poem{background:#fdf8f0;border-radius:8px;padding:20px;margin:12px 0;font-size:20px;line-height:2.2;color:#333;border:1px solid #e8dcc8}
+.pay-bar{background:linear-gradient(135deg,#8B4513,#A0522D);color:#ffd700;padding:12px;position:fixed;bottom:0;left:0;right:0;z-index:100}
+.pay-bar a{color:#fff;font-weight:bold;text-decoration:none}
+</style></head>
+<body>
+<header><h1>📜 古诗生成器</h1><p>输入关键词，AI即兴创作</p></header>
+<div class="box">
+<input type="text" id="kw" placeholder="输入主题,如:春天,月亮,思念" value="春天">
+<select id="style"><option>五言绝句</option><option>七言绝句</option></select>
+<button class="btn" onclick="gen()">📜 生成古诗</button>
+<div class="poem" id="poem">点击生成</div>
+</div>
+<div class="pay-bar">💡 想要更多功能？<a href="#">请作者喝杯咖啡 ☕</a> | 仅需1元</div>
+<script>
+const s=['春风','明月','白云','青山','绿水','落花','飞鸟','夕阳','朝霞','烟雨','孤舟','古道'];
+const v=['拂面','入怀','照水','映月','随风','逐流','伴云','倚松','卧石','听涛','望月','吟风'];
+const sc=['江南岸','小楼东','西窗前','北山上','南浦边','画桥畔','竹林中','松岗上','溪亭里','柳堤外','荷塘侧','菊篱下'];
+const l2=['惹相思','动客愁','锁清秋','使人愁','寄离愁','照无眠','入梦来','映孤影','诉衷情','染白头','伴孤舟','湿青衫'];
+function r(a){return a[Math.floor(Math.random()*a.length)]}
+function gen(){
+const kw=document.getElementById('kw').value.split(/[,，\s]+/).filter(s=>s)[0]||'无题';
+const style=document.getElementById('style').value;
+let poem='';
+if(style==='五言绝句'){
+poem='<p>'+r(s)+r(v)+r(sc)+'，</p><p>'+r(sc)+r(l2)+'。</p>';
+poem+='<p>'+kw+r(v)+r(sc)+'，</p><p>'+r(s)+r(l2)+'。</p>';
+}else{
+poem='<p>'+r(s)+r(v)+r(sc)+r(l2)+'，</p><p>'+r(s)+r(v)+r(sc)+r(l2)+'。</p>';
+poem+='<p>'+kw+r(v)+r(sc)+r(l2)+'，</p><p>'+r(s)+r(v)+r(sc)+r(l2)+'。</p>';
+}
+document.getElementById('poem').innerHTML=poem+'<p style="font-size:12px;color:#999;margin-top:8px">—— AI即兴创作</p>';
+}
+</script></body></html>
