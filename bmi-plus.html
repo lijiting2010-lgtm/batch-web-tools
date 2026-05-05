@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>BMI计算器 - 体重指数在线计算</title>
+<meta name="description" content="免费在线BMI计算器，输入身高体重计算体重指数。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:sans-serif;background:#f0fff4;text-align:center}
+header{background:linear-gradient(135deg,#2ecc71,#27ae60);color:white;padding:30px 20px}
+header h1{font-size:26px}
+.box{background:white;border-radius:12px;padding:20px;max-width:400px;margin:16px auto;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+input{width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:15px;margin:4px 0}
+.btn{background:#2ecc71;color:white;border:none;padding:10px 24px;border-radius:8px;font-size:15px;cursor:pointer;margin:8px}
+.result{background:#f0fff4;border-radius:12px;padding:20px;margin:12px 0;border:2px solid #c6f6d5}
+.bmi-num{font-size:48px;font-weight:bold;color:#2ecc71}
+.status{font-size:18px;margin:8px 0}
+.bar{height:12px;background:#eee;border-radius:6px;margin:12px 0;overflow:hidden}
+.bar-fill{height:100%;border-radius:6px;transition:width .5s}
+.range{font-size:12px;color:#86868b;display:flex;justify-content:space-between}
+.pay-bar{background:linear-gradient(135deg,#2ecc71,#27ae60);color:white;padding:12px;position:fixed;bottom:0;left:0;right:0;z-index:100}
+.pay-bar a{color:#ffd700;font-weight:bold;text-decoration:none}
+</style></head>
+<body>
+<header><h1>⚖️ BMI计算器</h1><p>输入身高体重计算BMI指数</p></header>
+<div class="box">
+<input type="number" id="height" placeholder="身高(cm)" value="170">
+<input type="number" id="weight" placeholder="体重(kg)" value="65">
+<button class="btn" onclick="calc()">📊 计算BMI</button>
+<div class="result" id="result">
+<div class="bmi-num" id="bmiVal">22.5</div>
+<div class="status" id="status">正常范围</div>
+<div class="bar"><div class="bar-fill" id="barFill" style="width:50%;background:#2ecc71"></div></div>
+<div class="range"><span>偏瘦</span><span>正常</span><span>超重</span><span>肥胖</span></div>
+</div>
+</div>
+<div class="pay-bar">💡 想要更多健康工具？<a href="#">请作者喝杯咖啡 ☕</a> | 仅需1元</div>
+<script>
+function calc(){
+const h=parseFloat(document.getElementById('height').value)/100;
+const w=parseFloat(document.getElementById('weight').value);
+if(!h||!w){alert('请输入有效数值');return;}
+const bmi=w/(h*h);
+document.getElementById('bmiVal').textContent=bmi.toFixed(1);
+let status,color,width;
+if(bmi<18.5){status='偏瘦';color='#f39c12';width=25;}
+else if(bmi<24){status='正常';color='#2ecc71';width=50;}
+else if(bmi<28){status='超重';color='#e67e22';width=70;}
+else{status='肥胖';color='#e74c3c';width=90;}
+document.getElementById('status').textContent=status;
+document.getElementById('barFill').style.width=width+'%';
+document.getElementById('barFill').style.background=color;
+document.getElementById('bmiVal').style.color=color;
+}
+calc();
+</script></body></html>
