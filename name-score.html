@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>姓名打分 - 免费在线姓名测试</title>
+<meta name="description" content="免费在线姓名打分测试，根据笔画数评分。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:sans-serif;background:#fef9ef;text-align:center}
+header{background:linear-gradient(135deg,#e17055,#d63031);color:white;padding:30px 20px}
+header h1{font-size:26px}
+.box{background:white;border-radius:12px;padding:20px;max-width:450px;margin:16px auto;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+input[type=text]{width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:18px;text-align:center}
+.btn{background:#e17055;color:white;border:none;padding:10px 24px;border-radius:8px;font-size:15px;cursor:pointer;margin:8px}
+.result{background:#fff3f0;border-radius:8px;padding:16px;margin:12px 0;text-align:left;line-height:1.8}
+.pay-bar{background:linear-gradient(135deg,#e17055,#d63031);color:white;padding:12px;position:fixed;bottom:0;left:0;right:0;z-index:100}
+.pay-bar a{color:#ffd700;font-weight:bold;text-decoration:none}
+</style></head>
+<body>
+<header><h1>📝 姓名打分</h1><p>根据姓名笔画评分</p></header>
+<div class="box">
+<input type="text" id="nameInput" placeholder="输入你的名字..." value="张三">
+<button class="btn" onclick="score()">🔮 测试分数</button>
+<div class="result" id="result">点击按钮测试姓名</div>
+</div>
+<div class="pay-bar">💡 觉得准？<a href="#">请作者喝杯咖啡 ☕</a> | 仅需1元</div>
+<script>
+function score(){
+const n=document.getElementById('nameInput').value.trim();
+if(!n){document.getElementById('result').textContent='请输入姓名';return}
+const strokes=n.split('').map(c=>{const code=c.charCodeAt(0);return (code%12)+1});
+const total=strokes.reduce((a,b)=>a+b,0);
+const base=Math.min(95,65+(total%30));
+const wuxing=['金','木','水','火','土'][total%5];
+const luck=['大吉','吉','中吉','小吉','平平','小凶'][total%6];
+const descs=['事业顺利，前途光明','福禄双全，名利双收','智勇双全，功成名就','贵人相助，前程似锦','先苦后甜，晚年幸福','胆识超群，财源广进'];
+document.getElementById('result').innerHTML=
+'<p>📝 姓名: <strong>'+n+'</strong></p>'+
+'<p>笔画: '+strokes.join('+')+' = <strong>'+total+'</strong></p>'+
+'<p>⭐ 评分: <strong style="font-size:24px;color:'+(base>=80?'#27ae60':base>=70?'#f39c12':'#e74c3c')+'">'+base+'</strong></p>'+
+'<p>五行: '+wuxing+' | 运势: '+luck+'</p>'+
+'<p>评价: '+descs[total%descs.length]+'</p>'+
+'<p style="font-size:12px;color:#999;margin-top:8px">*仅供娱乐</p>';
+}
+</script></body></html>
