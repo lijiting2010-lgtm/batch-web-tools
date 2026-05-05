@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>青蛙跳跳 - 在线小游戏</title>
+<meta name="description" content="免费在线小游戏，控制青蛙跳过障碍物得分">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:sans-serif;background:#f5f5f7;text-align:center}
+header{background:linear-gradient(135deg,#2ecc71,#27ae60);color:white;padding:30px 20px}
+header h1{font-size:26px}
+canvas{max-width:100%;border:2px solid #333;border-radius:8px;background:#87CEEB;margin:16px 0}
+.btn{background:#2ecc71;color:white;border:none;padding:8px 20px;border-radius:8px;font-size:15px;cursor:pointer;margin:4px}
+.pay-bar{background:linear-gradient(135deg,#2ecc71,#27ae60);color:white;padding:12px;position:fixed;bottom:0;left:0;right:0;z-index:100}
+.pay-bar a{color:#ffd700;font-weight:bold;text-decoration:none}
+.ad-box{background:#e5e5ea;border-radius:8px;padding:30px;text-align:center;color:#86868b;margin:12px 0;font-size:13px}
+</style></head>
+<body>
+<header><h1>🐸 青蛙跳跳</h1><p>按方向键控制青蛙跳到顶部得分</p></header>
+<canvas id="gc" width="400" height="500"></canvas>
+<div><button class="btn" onclick="restart()">重新开始</button> 得分: <strong id="sc">0</strong></div>
+<div class="ad-box">📢 广告位</div>
+<div class="pay-bar">💡 喜欢这个游戏？<a href="#">请作者喝杯咖啡 ☕</a> | 仅需1元</div>
+<script>
+const c=document.getElementById('gc'),ctx=c.getContext('2d');
+let f={x:200,y:440,s:12},cars=[],sc=0,ov=false,keys={};
+document.addEventListener('keydown',e=>{keys[e.key]=true;e.preventDefault()});
+document.addEventListener('keyup',e=>{keys[e.key]=false});
+function update(){
+if(ov)return;
+if(keys['ArrowUp']&&f.y>10)f.y-=4;if(keys['ArrowDown']&&f.y<480)f.y+=4;
+if(keys['ArrowLeft']&&f.x>10)f.x-=4;if(keys['ArrowRight']&&f.x<390)f.x+=4;
+cars.forEach(c=>{c.x+=c.s;if(c.x>400){c.x=-30;c.y=60+Math.random()*300}});
+cars.forEach(c=>{if(f.x+f.s>c.x&&f.x-f.s<c.x+30&&f.y+f.s>c.y&&f.y-f.s<c.y+20){ov=true;alert('挂了!得分:'+sc)}});
+if(f.y<20){sc++;f.y=440;f.x=200;document.getElementById('sc').textContent=sc}
+}
+function draw(){
+ctx.clearRect(0,0,400,500);
+ctx.fillStyle='#2ecc71';ctx.beginPath();ctx.arc(f.x,f.y,f.s,0,Math.PI*2);ctx.fill();
+ctx.fillStyle='#90EE90';ctx.fillRect(0,0,400,20);ctx.fillRect(0,480,400,20);
+cars.forEach(c=>{ctx.fillStyle=c.co;ctx.fillRect(c.x,c.y,30,20)});
+ctx.fillStyle='#333';ctx.font='13px Arial';ctx.fillText('跳到顶部分数!',5,15);
+}
+function loop(){update();draw();requestAnimationFrame(loop)}
+function restart(){f={x:200,y:440,s:12};sc=0;ov=false;document.getElementById('sc').textContent='0'}
+cars=[{x:100,y:100,s:2,co:'#e74c3c'},{x:300,y:200,s:-2,co:'#3498db'},{x:0,y:300,s:1.5,co:'#f39c12'}];
+loop();
+</script></body></html>
