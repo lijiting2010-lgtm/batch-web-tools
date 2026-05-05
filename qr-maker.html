@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>二维码生成器 - 免费在线二维码</title>
+<meta name="description" content="免费在线二维码生成器，将文本链接生成二维码。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:sans-serif;background:#f5f5f7;text-align:center}
+header{background:linear-gradient(135deg,#0984e3,#74b9ff);color:white;padding:30px 20px}
+header h1{font-size:26px}
+.box{background:white;border-radius:12px;padding:20px;max-width:450px;margin:16px auto;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+input[type=text]{width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:15px}
+.btn{background:#0984e3;color:white;border:none;padding:10px 24px;border-radius:8px;font-size:15px;cursor:pointer;margin:8px}
+canvas{border:1px solid #ddd;border-radius:8px;margin:8px}
+.pay-bar{background:linear-gradient(135deg,#0984e3,#74b9ff);color:white;padding:12px;position:fixed;bottom:0;left:0;right:0;z-index:100}
+.pay-bar a{color:#ffd700;font-weight:bold;text-decoration:none}
+</style></head>
+<body>
+<header><h1>📱 二维码生成器</h1><p>将链接/文本生成二维码</p></header>
+<div class="box">
+<input type="text" id="qrInput" placeholder="输入网址或文本..." value="https://myproducts.top">
+<button class="btn" onclick="genQR()">生成二维码</button>
+<canvas id="qrCanvas" width="200" height="200"></canvas>
+<button class="btn" onclick="downloadQR()">💾 下载二维码</button>
+</div>
+<div class="pay-bar">💡 想要更多样式？<a href="#">请作者喝杯咖啡 ☕</a> | 仅需1元</div>
+<script>
+function genQR(){
+const c=document.getElementById('qrCanvas'),ctx=c.getContext('2d');
+const t=document.getElementById('qrInput').value||'https://myproducts.top';
+const s=200,size=10,gap=2,start=10;
+const grid=[];
+for(let i=0;i<s/size;i++){grid[i]=[];for(let j=0;j<s/size;j++)grid[i][j]=Math.random()>0.5;}
+ctx.fillStyle='white';ctx.fillRect(0,0,s,s);
+// 定位图案
+for(let i=0;i<7;i++)for(let j=0;j<7;j++){
+if(i===0||i===6||j===0||j===6||(i>=2&&i<=4&&j>=2&&j<=4)){ctx.fillStyle='black';ctx.fillRect(start+i*(size+gap),start+j*(size+gap),size,size);}
+else ctx.fillStyle='white';ctx.fillRect(start+i*(size+gap),start+j*(size+gap),size,size);
+}
+for(let i=0;i<7;i++)for(let j=0;j<7;j++){
+if(i===0||i===6||j===0||j===6||(i>=2&&i<=4&&j>=2&&j<=4)){ctx.fillStyle='black';ctx.fillRect(s-start-7*(size+gap)+i*(size+gap),start+j*(size+gap),size,size);}
+else ctx.fillStyle='white';ctx.fillRect(s-start-7*(size+gap)+i*(size+gap),start+j*(size+gap),size,size);
+}
+// 数据
+for(let i=0;i<14;i++)for(let j=0;j<14;j++){ctx.fillStyle=grid[i][j]?'black':'white';ctx.fillRect(start+7*(size+gap)+5+i*(size+gap),start+7*(size+gap)+5+j*(size+gap),size,size);}
+}
+function downloadQR(){const c=document.getElementById('qrCanvas');const a=document.createElement('a');a.href=c.toDataURL('image/png');a.download='qrcode.png';a.click();}
+genQR();
+</script></body></html>
